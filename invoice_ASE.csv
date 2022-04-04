@@ -1,0 +1,11 @@
+customer_id,mode_of_payment,product_id
+1,card,11
+2,cash,2
+3,cash,5
+4,card,4
+5,card,6
+6,cash,9
+7,cash,1
+8,card,4
+9,cash,6
+1,cash,9
