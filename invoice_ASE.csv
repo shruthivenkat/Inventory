@@ -1,11 +1,8 @@
-customer_id,mode_of_payment,product_id
-1,card,11
-2,cash,2
-3,cash,5
-4,card,4
-5,card,6
-6,cash,9
-7,cash,1
-8,card,4
-9,cash,6
-1,cash,9
+customer_id,mode_of_payment,datetime_of_purchase,shipment_type
+
+13,Card,2022-04-05 15:10:21.084314,Home
+13,Card,2022-04-05 15:12:45.379931,Home
+13,Card,2022-04-05 15:16:35.027459,No
+13,Card,2022-04-05 16:57:10.147015,Home
+13,Card,2022-04-05 16:57:52.949617,Take away
+13,Card,2022-04-05 16:58:45.209921,Home
