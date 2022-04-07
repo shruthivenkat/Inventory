@@ -2,6 +2,7 @@ import pandas as pd
 from csv import writer
 from datetime import datetime
 
+
 class Product:
     # HINT TO TEST THE CODE : 
     # p = Product()
@@ -20,6 +21,7 @@ class Product:
     def update_product_quantity(self, product_id):
         self.products.loc[product_id, 'quantity'] = self.products.at[product_id, 'quantity'] - 1
         self.products.to_csv("product_ASE.csv", index=False)
+
 
 class Customer:
     def __init__(self):
@@ -73,11 +75,7 @@ class invoice(Product):
             p.update_product_quantity(product_id_value)
         
         return self.invoice.tail(1).id.values[0]
-    
-
-#     def invoiceLookup(self,invoice_params):
-#         final_invoice_set = self.invoice[self.invoice['id'] == invoice_id]
-#         return final_invoice_set
+        
 
 class PurchaseHistory:
     # ph = PurchaseHistory()
@@ -131,13 +129,13 @@ def main():
     print("2. Inventory Lookup")
     val = input()
     if val == "1":
-        customer_phone_number = input("customer_phone_number")
+        customer_phone_number = input("Enter customer's phone number : ")
         c = Customer()
         customer = c.getCustomerDetails(customer_phone_number)
         if customer.empty:
             print("OOPS! Unfortunately the database don't have any details about this customer! Please provide the following details to place an order. Thank you!")
-            name = input("Enter the customer name")
-            address = input("Enter the customer address")
+            name = input("Enter the customer name ")
+            address = input("Enter the customer address ")
             c.createCustomer(customer_phone_number,[name,address,"customer"])
             
         list_of_products_to_be_purchased = []
@@ -151,6 +149,15 @@ def main():
             
         i = invoice()
         c = Customer()
+
+        
+        mode_of_payment = input("How would the customer like to make the payment ? Cash / Card ? ")
+        shipment_type = input("Is it a home delivery order or a take-away order ? ")
+        
+        delivery_fee = 0
+        if shipment_type.lower() in "home delivery":
+            delivery_fee += 5
+            
         print("==============================================")
         print("LIST OF PRODUCTS ADDED TO THE CART :")
         print("==============================================")
@@ -161,21 +168,27 @@ def main():
             product_item = p.getProductInfo(product_id)
             total_purchase_value += int(product_item.selling_cost.values[0][1:])
             print((product_item.product_name.to_string(index=False).ljust(40) + product_item.selling_cost.to_string(index=False)).expandtabs(30))
+        if delivery_fee > 0: 
+            print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
+            total_purchase_value += 5
         print("----------------------------------------------")
         print("Total Purchase Value".ljust(40)+"$"+str(total_purchase_value))
         print("----------------------------------------------")
         
-        mode_of_payment = input("How would the customer like to make the payment ? Cash / Card ? ")
-        shipment_type = input("Is it a home delivery order or a take-away order ? ")
-        
         
         created_invoice_id = i.createInvoice(list_of_products_to_be_purchased, mode_of_payment, customer_phone_number, shipment_type)
-        print("The order has been placed with invoice ID : "+str(created_invoice_id))
-        print("==============================================")
-        print("INVOICE :")
-        print("==============================================")
+        permission_to_proceed = input("do you want to proceed ?")
+        if permission_to_proceed.lower() == "yes":
+            print("The order has been placed with invoice ID : "+str(created_invoice_id))
+            print("==============================================")
+            print("INVOICE :")
+            print("==============================================")
+        else:
+            print("Thank you!")
+            return
         
     elif val == "2":
+        p = Product()
         print("==============================================")
         print("Inventory LookUp Options : ")
         print("==============================================")
@@ -183,9 +196,30 @@ def main():
         print("2. Check for products that are to be restocked")
         print("3. Check for product location in Warehouse")
         print("4. Check for product details")
+        print("5. Pull up products based on rating value")
+        print("6. Pull up products based on selling cost")
+        
         print("----------------------------------------------")
+        lookup_option = int(input("Your Lookup option : "))
+        if lookup_option == 1:
+            product_id = int(input("Please enter the product ID :"))
+            product_details = p.getProductInfo(product_id)
+            print("Information Result :")
+            print("--------------------")
+            print(product_details.loc[:, ~product_details.columns.isin(['id', 'cost_price', 'category'])].to_string(index=False))
+#         elif lookup_option == 2:
+            
+#             product_set = p[p['quantity']<5] 
+#         elif lookup_option == 3:
+            
+#         elif lookup_option == 4:
+            
+        else:
+            print("oops, you didnt enter any option. Try again Later!")
         
-        
+    
+    
+    
     
     
     
