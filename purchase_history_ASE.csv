@@ -1,37 +1,4 @@
 invoice_id,product_id,customer_phone_number
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",4,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",2,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",2,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",9,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",8,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",3,66
-"Empty DataFrame
-Columns: [id, customer_id, mode_of_payment, datetime_of_purchase, shipment_type]
-Index: []",6,66
+10,3,66
+10,2,66
+10,9,66

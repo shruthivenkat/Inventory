@@ -1,15 +1,18 @@
-name,phone_number,address,role
-shruthi venkatachalam,5625648766,"1605 Ximeno Ave, Long beach, CA",customer
-Venkat C,5628987344,"3672 Wall street, Long Beach, CA",customer
-Pranith Raj,5639872233,"1603 Ximeno Ave, Long beach, CA",customer
-Suhas Gowda,5620981633,"park street 20, Long Beach, CA",customer
-Ankit Kay,5629992220,"123 Ave, Long Beach, CA",customer
-Aish Sendil,5627836744,"322 Apt, south end, Long Beach, CA",customer
-Hridik T,5624732888,"3022 Bayhill, Long Beach, CA",customer
-Divya S,5622539087,"twlight, Long Beach, CA",customer
-Richa Patel,5627391038,"mary land, Long Beach, CA",customer
-Annie Franklin,5679203723,"1345 Bellflower road, CA",sales Person
-Bob Martin,5672349081,"120 Ave",customer
-shruthi Venkatachalam1,562364721,"123 Ave, LB, CA",customer
-shruthi VENKATACHALAM,55,123 AVE,customer
-SHRUTHI VENKATACHALAM,66,123 AVE,customer
+name,phone_number,address,role,sale_percentage
+shruthi venkatachalam,5625648766,"1605 Ximeno Ave, Long beach, CA",customer,2.4
+Venkat C,5628987344,"3672 Wall street, Long Beach, CA",customer,1
+Pranith Raj,5639872233,"1603 Ximeno Ave, Long beach, CA",customer,2.6
+Suhas Gowda,5620981633,"park street 20, Long Beach, CA",customer,3
+Ankit Kay,5629992220,"123 Ave, Long Beach, CA",customer,3.5
+Aish Sendil,5627836744,"322 Apt, south end, Long Beach, CA",customer,4
+Hridik T,5624732888,"3022 Bayhill, Long Beach, CA",customer,4.2
+Divya S,5622539087,"twlight, Long Beach, CA",customer,5
+Richa Patel,5627391038,"mary land, Long Beach, CA",customer,3.9
+Annie Franklin,5679203723,"1345 Bellflower road, CA",sales Person,3
+Bob Martin,5672349081,"120 Ave",customer,2.7
+shruthi Venkatachalam1,562364721,"123 Ave, LB, CA",customer,2.3
+shruthi VENKATACHALAM,55,123 AVE,customer,3
+SHRUTHI VENKATACHALAM,66,123 AVE,customer,1
+shruthi venkat,33,4562 ave,customer,2.5
+shru,22,330 ave,customer,3
+shruthi,77,1001 new ave,customer,2.0

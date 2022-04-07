@@ -1,15 +1,15 @@
 product_name,brand,warehouse,selling_cost,reviews,cost_price,quantity,category,location
 Samsung QN900A Neo QLED 8K,Samsung,w1,$200,5.0,$300,51,TV,Aisle L1
-LG G1 Gallery Series OLED,LG,w2,$200,3.7,$300,1,TV,Aisle K14
-LG C1 Series OLED TV,LG,w2,$200,5.0,$300,90,TV,Aisle K11
-Sony A90J OLED,Sony,w1,$200,4.5,$300,1,TV,Aisle K5
-Sony Bravia X90J,Sony,w1,$200,4.7,$300,76,TV,Aisle K9
-TCL 6-Series with Mini LED,TCL,w1,$200,4.1,$300,13,TV,Aisle K4
+LG G1 Gallery Series OLED,LG,w2,$200,3.7,$300,-1,TV,Aisle K14
+LG C1 Series OLED TV,LG,w2,$200,5.0,$300,78,TV,Aisle K11
+Sony A90J OLED,Sony,w1,$200,4.5,$300,-26,TV,Aisle K5
+Sony Bravia X90J,Sony,w1,$200,4.7,$300,71,TV,Aisle K9
+TCL 6-Series with Mini LED,TCL,w1,$200,4.1,$300,10,TV,Aisle K4
 Vizio H-1 OLED TV,Vizio,w1,$200,3.8,$300,18,TV,Aisle J19
-Samsung QN90A Neo QLED,Samsung,w2,$200,4.0,$300,10,TV,Aisle J15
-Hisense H8G Quantum,Hisense,w2,$200,4.5,$300,76,TV,Aisle J12
-Samsung The Frame (2021),Samsung,w1,$200,4.8,$300,44,TV,Aisle J11
-Sony A90J OLED,Sony,w2,$200,4.2,$300,41,TV,Aisle J10
+Samsung QN90A Neo QLED,Samsung,w2,$200,4.0,$300,7,TV,Aisle J15
+Hisense H8G Quantum,Hisense,w2,$200,4.5,$300,73,TV,Aisle J12
+Samsung The Frame (2021),Samsung,w1,$200,4.8,$300,38,TV,Aisle J11
+Sony A90J OLED,Sony,w2,$200,4.2,$300,40,TV,Aisle J10
 Bose Wave SoundTouch Music System,Bose,w1,$200,4.3,$300,33,Sterio,Aisle N1
 Sony CMT-SBT100 Micro Music System,Sony,w2,$200,4.0,$300,20,Sterio,Aisle M14
 PHILIPS Bluetooth Stereo System,Philips,w1,$200,3.9,$300,40,Sterio,Aisle M13

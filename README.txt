@@ -24,5 +24,12 @@ change cost and selling value of the products
 
 THINSG TO CODE : 
 
-- There could be more than 1 product to be bought at the same time 
 - UPDATE if quanity is less than 5 in warehouse
+- alocate salesperson commission
+
+-- INVENTORY LOOKUP
+
+__ TEST CASES 
+
+
+
