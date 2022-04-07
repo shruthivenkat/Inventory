@@ -11,3 +11,7 @@ customer_id,mode_of_payment,datetime_of_purchase,shipment_type
 13,Cash,2022-04-07 00:13:11.715411,Home
 13,Cash,2022-04-07 00:13:50.498324,Home
 13,Card,2022-04-07 00:32:58.712133,Home
+13,Card,2022-04-07 09:55:00.697603,Home
+13,Card,2022-04-07 10:40:34.116773,Home
+13,Card,2022-04-07 10:42:36.986834,Home
+13,Card,2022-04-07 10:44:50.325091,Home

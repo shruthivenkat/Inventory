@@ -16,7 +16,11 @@ class Product:
         return final_product_set
         
     def update_product_quantity(self, product_id):
-        self.products.loc[product_id, 'quantity'] = self.products.at[product_id, 'quantity'] - 1
+        product_quanity = self.products.at[product_id, 'quantity']
+        if product_quanity > 1:
+            self.products.loc[product_id, 'quantity'] = product_quanity - 1
+        else:
+            self.products.loc[product_id, 'quantity'] = 0
         self.products.to_csv("product_ASE.csv", index=False)
 
 
@@ -123,8 +127,9 @@ def main():
     print("What would you like to do? Please select one of the following:")
     print("1. Place an order")
     print("2. Inventory Lookup")
-    val = input()
-    if val == "1":
+    
+    selected_choice = input()
+    if selected_choice == "1":
         customer_phone_number = input("Enter customer's phone number : ")
         c = Customer()
         customer = c.getCustomerDetails(customer_phone_number)
@@ -167,6 +172,7 @@ def main():
         if delivery_fee > 0: 
             print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
             purchase_value += 5
+            
         sales_tax_value = purchase_value * ((c.customers[c.customers['phone_number']==int(customer_phone_number)].sale_percentage.values[0])/100)
         print("----------------------------------------------")
         print("Purchase Value".ljust(40)+"$"+str(purchase_value))
@@ -178,6 +184,9 @@ def main():
         
         permission_to_proceed = input("do you want to proceed ?")
         if permission_to_proceed.lower() == "yes":
+            
+            sum_paid_at_time_of_purchase = float(input("Amount paid : "))
+            
             latest_invoice_id = i.createInvoice(list_of_products_to_be_purchased, mode_of_payment, customer_phone_number, shipment_type)
             print("The order has been placed with invoice ID : "+str(latest_invoice_id))
             print("==============================================")
@@ -200,6 +209,7 @@ def main():
             if delivery_fee > 0: 
                 print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
                 purchase_value += 5
+                
             sales_tax_value = purchase_value * ((c.customers[c.customers['phone_number']==int(customer_phone_number)].sale_percentage.values[0])/100)
             print("----------------------------------------------")
             print("Purchase Value".ljust(40)+"$"+str(purchase_value))
@@ -207,6 +217,9 @@ def main():
             total_purchase_value = purchase_value + sales_tax_value
             print("----------------------------------------------")
             print("Total Purchase Value".ljust(40)+"$"+str(total_purchase_value))
+            print("Sum Paid at time of purchase".ljust(40)+"$"+str(sum_paid_at_time_of_purchase))
+            print("----------------------------------------------")
+            print("Due Amount".ljust(40)+"$"+str(round((total_purchase_value - sum_paid_at_time_of_purchase),2)))
             print("----------------------------------------------")
             SalesPerson.addSalesCommission(latest_invoice_id, total_purchase_value * (round(random.uniform(5, 10),2)/100)) 
             
@@ -214,19 +227,16 @@ def main():
             print("Purchase Aborted ! Thank you!")
             return
         
-    elif val == "2":
+    elif selected_choice == "2":
         p = Product()
         print("==============================================")
         print("Inventory LookUp Options : ")
         print("==============================================")
-        print("1. Check for a product availability")
+        print("1. Check for a product details")
         print("2. Check for products that are to be restocked")
         print("3. Check for product location in Warehouse")
-        print("4. Check for product details")
-        print("5. Pull up products based on rating value")
-        print("6. Pull up products based on selling cost")
-        
         print("----------------------------------------------")
+        
         lookup_option = int(input("Your Lookup option : "))
         if lookup_option == 1:
             product_id = int(input("Please enter the product ID :"))
@@ -234,16 +244,19 @@ def main():
             print("Information Result :")
             print("--------------------")
             print(product_details.loc[:, ~product_details.columns.isin(['id', 'cost_price', 'category'])].to_string(index=False))
-#         elif lookup_option == 2:
-            
-#             product_set = p[p['quantity']<5] 
-#         elif lookup_option == 3:
-            
-#         elif lookup_option == 4:
+        elif lookup_option == 2:
+            print(p.products[p.products["quantity"]<5].loc[:, ~p.products.columns.isin(['id', 'cost_price'])])
+        elif lookup_option == 3:
+            product_id = int(input("Please enter the product ID :"))
+            product_details = p.getProductInfo(product_id)
+            print("==============================================")
+            print("Product : #"+str(product_id))
+            print("==============================================")
+            print("Warehouse".ljust(30)+product_details["warehouse"].values[0])
+            print("Location".ljust(30)+product_details["location"].values[0])
+            print("----------------------------------------------")
         else:
             print("oops, you didnt enter any option. Try again Later!")
-        
-    
     
 if __name__ == "__main__":
     main()
