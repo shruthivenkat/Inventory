@@ -41,6 +41,10 @@ class Customer:
         customer = self.customers.rename(columns = {'index':'id'})
         val = self.customers[self.customers['phone_number']==int(phone_number)] 
         return val 
+    
+    def hasValidPhonenumber(self,customer_phone_number):
+        Pattern = re.compile("[1-9][0-9]{9}")
+        return Pattern.match(customer_phone_number)
 
 class invoice(Product):
 
@@ -164,6 +168,9 @@ def main():
     if selected_choice == "1":
         customer_phone_number = input("Enter customer's phone number : ")
         c = Customer()
+        if not c.hasValidPhonenumber(customer_phone_number):
+            print("Please enter a Valid Phone Number!")
+            return
         customer = c.getCustomerDetails(customer_phone_number)
         if customer.empty:
             print("OOPS! Unfortunately the database don't have any details about this customer! Please provide the following details to place an order. Thank you!")
@@ -177,7 +184,7 @@ def main():
             product_id = input("Enter the product ID: ")
             list_of_products_to_be_purchased.append(int(product_id))
             condition_to_stop_product_addition = input("do you want to add more products to the purchase list ? Yes / No? \n ")
-            if condition_to_stop_product_addition != "Yes":
+            if condition_to_stop_product_addition.lower() != "yes":
                 break
             
         i = invoice()
