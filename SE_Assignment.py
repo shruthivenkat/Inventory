@@ -23,7 +23,6 @@ class Product:
             self.products.loc[product_id, 'quantity'] = 0
         self.products.to_csv("product_ASE.csv", index=False)
 
-
 class Customer:
     
     def __init__(self):
@@ -43,7 +42,6 @@ class Customer:
         val = self.customers[self.customers['phone_number']==int(phone_number)] 
         return val 
 
-        
 class invoice(Product):
 
     def __init__(self):
@@ -73,7 +71,40 @@ class invoice(Product):
             p.update_product_quantity(product_id_value)
         
         return self.invoice.tail(1).id.values[0]
+    
+    def displayInvoice(self,invoice_id,customer,list_of_products_purchased,delivery_fee,sum_paid_at_time_of_purchase,sales_tax_value):
+        print("==============================================")
+        print("INVOICE :".ljust(40)+"#"+str(invoice_id))
+        print("==============================================")
+        print("Customer details :")
+        print("Name".ljust(20)+customer.name.values[0])
+        print("Phone Number".ljust(20)+str(customer.phone_number.values[0]))
+        print("Address".ljust(20)+str(customer.address.values[0]))
+        print("==============================================")
+        print("Purchased Products :")
+        print("==============================================")
+        purchase_value = 0
+        
+        for product_id in list_of_products_purchased:
+            p = Product()
+            product_item = p.getProductInfo(product_id)
+            purchase_value += int(product_item.selling_cost.values[0][1:])
+            print((product_item.product_name.to_string(index=False).ljust(40) + product_item.selling_cost.to_string(index=False)).expandtabs(30))
+        
+        if delivery_fee > 0: 
+            print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
+            purchase_value += delivery_fee
 
+        print("----------------------------------------------")
+        print("Purchase Value".ljust(40)+"$"+str(purchase_value))
+        print("Sales tax".ljust(40)+"$"+str(sales_tax_value))
+        total_purchase_value = purchase_value + sales_tax_value
+        print("----------------------------------------------")
+        print("Total Purchase Value".ljust(40)+"$"+str(total_purchase_value))
+        print("Sum Paid at time of purchase".ljust(40)+"$"+str(sum_paid_at_time_of_purchase))
+        print("----------------------------------------------")
+        print("Due Amount".ljust(40)+"$"+str(round((total_purchase_value - sum_paid_at_time_of_purchase),2)))
+        print("----------------------------------------------")
 
 class PurchaseHistory:
     
@@ -86,7 +117,7 @@ class PurchaseHistory:
             writer_object = writer(f_object)
             writer_object.writerow(Row_value_to_be_inserted)
             f_object.close()
-            
+
 class Warehouse(Product):
     
     def inventoryLookup(self,warehouse_id, product_id, brand):
@@ -113,8 +144,9 @@ class Warehouse(Product):
             print("Products under the warehouse : w"+str(warehouse_id))
             print("===============================")
             print(val.to_string(index=False))
-    
+
 class SalesPerson:
+    
     def addSalesCommission(sales_person_id, commission_value):
         Row_value_to_be_inserted = [sales_person_id,commission_value,datetime.now()]
         with open('sales_commission.csv', 'a') as f_object:
@@ -155,25 +187,22 @@ def main():
         mode_of_payment = input("How would the customer like to make the payment ? Cash / Card ? ")
         shipment_type = input("Is it a home delivery order or a take-away order ? ")
         
-        delivery_fee = 0
-        if shipment_type.lower() in "home delivery":
-            delivery_fee += 5
-            
         print("==============================================")
         print("LIST OF PRODUCTS ADDED TO THE CART :")
         print("==============================================")
         purchase_value = 0
-        
         for product_id in list_of_products_to_be_purchased:
             p = Product()
             product_item = p.getProductInfo(product_id)
             purchase_value += int(product_item.selling_cost.values[0][1:])
             print((product_item.product_name.to_string(index=False).ljust(40) + product_item.selling_cost.to_string(index=False)).expandtabs(30))
-        if delivery_fee > 0: 
+        
+        if shipment_type.lower() in "home delivery":
+            delivery_fee = 5
             print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
-            purchase_value += 5
+            purchase_value += delivery_fee
             
-        sales_tax_value = purchase_value * ((c.customers[c.customers['phone_number']==int(customer_phone_number)].sale_percentage.values[0])/100)
+        sales_tax_value = purchase_value * ((customer.sale_percentage.values[0])/100)
         print("----------------------------------------------")
         print("Purchase Value".ljust(40)+"$"+str(purchase_value))
         print("Sales tax".ljust(40)+"$"+str(sales_tax_value))
@@ -189,38 +218,8 @@ def main():
             
             latest_invoice_id = i.createInvoice(list_of_products_to_be_purchased, mode_of_payment, customer_phone_number, shipment_type)
             print("The order has been placed with invoice ID : "+str(latest_invoice_id))
-            print("==============================================")
-            print("INVOICE :".ljust(40)+"#"+str(latest_invoice_id))
-            print("==============================================")
-            print("Customer details :")
-            print("Name".ljust(20)+customer.name.values[0])
-            print("Phone Number".ljust(20)+customer_phone_number)
-            print("Address".ljust(20)+c.customers[c.customers['phone_number']==int(customer_phone_number)].address.values[0])
-            print("==============================================")
-            print("Purchased Products :")
-            print("==============================================")
-            purchase_value = 0
-
-            for product_id in list_of_products_to_be_purchased:
-                p = Product()
-                product_item = p.getProductInfo(product_id)
-                purchase_value += int(product_item.selling_cost.values[0][1:])
-                print((product_item.product_name.to_string(index=False).ljust(40) + product_item.selling_cost.to_string(index=False)).expandtabs(30))
-            if delivery_fee > 0: 
-                print("Delivery fee".ljust(40)+"$"+str(delivery_fee))
-                purchase_value += 5
-                
-            sales_tax_value = purchase_value * ((c.customers[c.customers['phone_number']==int(customer_phone_number)].sale_percentage.values[0])/100)
-            print("----------------------------------------------")
-            print("Purchase Value".ljust(40)+"$"+str(purchase_value))
-            print("Sales tax".ljust(40)+"$"+str(sales_tax_value))
-            total_purchase_value = purchase_value + sales_tax_value
-            print("----------------------------------------------")
-            print("Total Purchase Value".ljust(40)+"$"+str(total_purchase_value))
-            print("Sum Paid at time of purchase".ljust(40)+"$"+str(sum_paid_at_time_of_purchase))
-            print("----------------------------------------------")
-            print("Due Amount".ljust(40)+"$"+str(round((total_purchase_value - sum_paid_at_time_of_purchase),2)))
-            print("----------------------------------------------")
+            
+            i.displayInvoice(latest_invoice_id,customer,list_of_products_to_be_purchased,delivery_fee,sum_paid_at_time_of_purchase,sales_tax_value)
             SalesPerson.addSalesCommission(latest_invoice_id, total_purchase_value * (round(random.uniform(5, 10),2)/100)) 
             
         else:
