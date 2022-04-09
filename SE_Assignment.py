@@ -124,30 +124,19 @@ class PurchaseHistory:
 
 class Warehouse(Product):
     
-    def inventoryLookup(self,warehouse_id, product_id, brand):
+    def lookupProductsUnderABrand(self,brand_name):
+        products_with_the_give_brand = self.products[self.products['brand']== brand_name]
+        print("Products under the brand : "+brand_name)
+        print("=======================================================================================")
+        print(products_with_the_give_brand.to_string(index=False))  
+        print("---------------------------------------------------------------------------------------")
         
-        # IF THE USER WANTS TO GET TO KNOW DETAILS OF A PARTICULAR PRODUCT
-        if product_id:
-            product_detail = p.getProductInfo(product_id)
-            print("Details of the Product with product_id : " + str(product_id))
-            print("===========================================")
-            print(product_detail.to_string(index=False))
-            print("---------------------------------------------------------------------------------------")
-        
-        # IF THE USER WANTS TO GET THE CURRENT AVAILABLITY OF A PARTICULAR BRAND
-        if brand:
-            val = self.products[self.products['brand']== brand]
-            print("Products under the brand : "+brand)
-            print("===============================")
-            print(val.to_string(index=False))  
-            print("---------------------------------------------------------------------------------------")
-            
-        # IF THE USER WANTS TO SEE ALL PRODUCTS THAT ARE IN A PARTICULAR WAREHOUSE
-        if warehouse_id:
-            val = self.products[self.products['warehouse']== "w" + str(warehouse_id)]
-            print("Products under the warehouse : w"+str(warehouse_id))
-            print("===============================")
-            print(val.to_string(index=False))
+    def lookupProductsInAWarehouse(self,warehouse_id):
+        products_in_the_given_warehouse = self.products[self.products['warehouse']== "w" + str(warehouse_id)]
+        print("Products under the warehouse : w"+str(warehouse_id))
+        print("=======================================================================================")
+        print(products_in_the_given_warehouse.to_string(index=False))
+        print("---------------------------------------------------------------------------------------")
 
 class SalesPerson:
     
@@ -246,8 +235,10 @@ def main():
         print("1. Check for a product details")
         print("2. Check for products that are to be restocked")
         print("3. Check for product location in Warehouse")
+        print("4. Look for products with a brand name")
+        print("5. Look for products in a particular warehouse")
         print("----------------------------------------------")
-        
+        warehouse_lookup = Warehouse()
         lookup_option = int(input("Your Lookup option : "))
         if lookup_option == 1:
             product_id = int(input("Please enter the product ID :"))
@@ -266,6 +257,12 @@ def main():
             print("Warehouse".ljust(30)+product_details["warehouse"].values[0])
             print("Location".ljust(30)+product_details["location"].values[0])
             print("----------------------------------------------")
+        elif lookup_option == 4:
+            brand_name = input("Enter the brand name : ")
+            warehouse_lookup.lookupProductsUnderABrand(brand_name)
+        elif lookup_option == 5:
+            warehouse_id = input("Enter the warehouse ID : ")
+            warehouse_lookup.lookupProductsInAWarehouse(warehouse_id)
         else:
             print("oops, you didnt enter any option. Try again Later!")
     
