@@ -177,6 +177,11 @@ def main():
             name = input("Enter the customer name ")
             address = input("Enter the customer address ")
             c.createCustomer(customer_phone_number,[name,address,"customer"])
+        print("==============================================") 
+        print("LIST OF PRODUCTS AVAILABLE IN THE STORE : ")
+        print("==============================================")
+        set_of_all_products = Product()
+        print(set_of_all_products.products.loc[:, ~set_of_all_products.products.columns.isin(['id', 'cost_price'])])
             
         list_of_products_to_be_purchased = []
         condition_to_stop_product_addition = 'Yes'
