@@ -1,7 +1,7 @@
 import pandas as pd
 from csv import writer
 from datetime import datetime
-import random as re
+import random
 
 class Product:
 
