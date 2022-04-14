@@ -1,7 +1,7 @@
 import pandas as pd
 from csv import writer
 from datetime import datetime
-import random
+import random as re
 
 class Product:
 
@@ -43,8 +43,10 @@ class Customer:
         return val 
     
     def hasValidPhonenumber(self,customer_phone_number):
-        Pattern = re.compile("[1-9][0-9]{9}")
-        return Pattern.match(customer_phone_number)
+        if (len(customer_phone_number)) == 10:
+            return True
+        else:
+            return False
 
 class invoice(Product):
 
