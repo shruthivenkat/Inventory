@@ -127,27 +127,40 @@ class PurchaseHistory:
 class Warehouse(Product):
     
     def lookupProductsUnderABrand(self,brand_name):
-        products_with_the_give_brand = self.products[self.products['brand']== brand_name]
-        print("Products under the brand : "+brand_name)
-        print("=======================================================================================")
-        print(products_with_the_give_brand.to_string(index=False))  
-        print("---------------------------------------------------------------------------------------")
+        if brand_name in list(self.products['brand']):
+            products_with_the_give_brand = self.products[self.products['brand']== brand_name]
+            print("Products under the brand : "+brand_name)
+            print("=======================================================================================")
+            print(products_with_the_give_brand.to_string(index=False))  
+            print("---------------------------------------------------------------------------------------")
+            return self.products[self.products['brand']== brand_name]
+        else:
+            return "Product unavailable !"
+
         
     def lookupProductsInAWarehouse(self,warehouse_id):
-        products_in_the_given_warehouse = self.products[self.products['warehouse']== "w" + str(warehouse_id)]
-        print("Products under the warehouse : w"+str(warehouse_id))
-        print("=======================================================================================")
-        print(products_in_the_given_warehouse.to_string(index=False))
-        print("---------------------------------------------------------------------------------------")
+        if warehouse_id in [1,2]:
+            products_in_the_given_warehouse = self.products[self.products['warehouse']== "w" + str(warehouse_id)]
+            print("Products under the warehouse : w"+str(warehouse_id))
+            print("=======================================================================================")
+            print(products_in_the_given_warehouse.to_string(index=False))
+            print("---------------------------------------------------------------------------------------")
+            return self.products[self.products['warehouse']== "w" + str(warehouse_id)]
+        else:
+            return "warehouse ID unavailable!"
 
 class SalesPerson:
     
     def addSalesCommission(sales_person_id, commission_value):
-        Row_value_to_be_inserted = [sales_person_id,commission_value,datetime.now()]
-        with open('sales_commission.csv', 'a') as f_object:
-            writer_object = writer(f_object)
-            writer_object.writerow(Row_value_to_be_inserted)
-            f_object.close()
+        if sales_person_id in [1001,1001]:
+            Row_value_to_be_inserted = [sales_person_id,commission_value,datetime.now()]
+            with open('sales_commission.csv', 'a') as f_object:
+                writer_object = writer(f_object)
+                writer_object.writerow(Row_value_to_be_inserted)
+                f_object.close()
+            return Row_value_to_be_inserted
+        else:
+            return "Enter valid customer ID"
 
 def main():
 
@@ -186,7 +199,7 @@ def main():
         i = invoice()
         c = Customer()
     
-        salesperson_during_purchase = int(input("ID of the sales person : "))
+        salesperson_during_purchase = int(input("ID of the sales person (Valid IDs available = 1001 / 1011) : "))
         mode_of_payment = input("How would the customer like to make the payment ? Cash / Card ? ")
         shipment_type = input("Is it a home delivery order or a take-away order ? ")
         
